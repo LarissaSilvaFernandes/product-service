@@ -2,6 +2,7 @@ package lavin.product_service.controller;
 
 import jakarta.validation.Valid;
 import lavin.product_service.dtos.request.ProductRequest;
+import lavin.product_service.dtos.request.ProductRequestStock;
 import lavin.product_service.dtos.response.ProductResponse;
 import lavin.product_service.service.ProductService;
 import org.springframework.http.ResponseEntity;
@@ -29,4 +30,18 @@ public class ProductController {
         return productService.addProduct(productRequest);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponse> getProduct(@PathVariable String id) {
+        return productService.listProductById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponse> updateProductDeactivate(@PathVariable String id) {
+        return productService.updateProductByIdAndDeactivate(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ProductResponse> updateProductStock(@PathVariable String id, @RequestBody @Valid ProductRequestStock productRequestStock) {
+        return productService.updateProductStock(id, productRequestStock);
+    }
 }
